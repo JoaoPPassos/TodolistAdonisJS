@@ -4,21 +4,32 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Todo from 'App/Models/Todo'
 import { updatingField } from '../../../util/updateModel'
 import { fieldsChecker } from '../../../util/requiredFields'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class TodolistsController {
-  public async index() {
-    const todos = Todo.query()
+  public async index({ auth }: HttpContextContract) {
+    const user_id = auth.user.id
+
+    const todos = await Database.from('todos as t')
+      .select(`t.*`, 'c.name as category_name', 'p.status as priority_status')
+      .leftJoin('categories as c', 't.category_id', 'c.id')
+      .leftJoin('priorities as p', 'p.id', 't.priority_id')
+      .where('t.user_id', user_id)
+
     return todos
   }
 
-  public async create({ request, response }: HttpContextContract) {
-    const requiredFields = ['name', 'description', 'category_id']
+  public async create({ request, response, auth }: HttpContextContract) {
+    const requiredFields = ['name', 'description', 'category_id', 'priority_id']
     const body = request.body()
+    const user_id = auth.user.id
 
     try {
       fieldsChecker(requiredFields, body)
-
-      const todo = await Todo.create(body)
+      const todo = await Todo.create({
+        ...body,
+        user_id,
+      })
       return response.status(201).send(todo)
     } catch (error) {
       return response.status(402).send(error.message)

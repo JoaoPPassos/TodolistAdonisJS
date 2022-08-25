@@ -47,3 +47,8 @@ Route.group(() => {
   Route.post('/', 'UsersController.create')
   Route.post('/login', 'UsersController.login')
 }).prefix('/user')
+
+Route.group(() => {
+  Route.get('/', 'PrioritiesController.index')
+  Route.post('/', 'PrioritiesController.create')
+}).prefix('/priority')

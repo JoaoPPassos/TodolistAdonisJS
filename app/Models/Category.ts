@@ -1,13 +1,16 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Todo from './Todo'
+import User from './User'
 
 export default class Category extends BaseModel {
-  // @belongsTo(() => Todo)
-  // public todo: BelongsTo<typeof Todo>
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
 
   @column({ isPrimary: true })
   public id: number
+
+  @column()
+  public user_id: number
 
   @column()
   public name: string

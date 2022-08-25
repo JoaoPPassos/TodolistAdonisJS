@@ -4,20 +4,22 @@ import { updatingField } from '../../../util/updateModel'
 import { fieldsChecker } from '../../../util/requiredFields'
 
 export default class CategoriesController {
-  public async index() {
-    const categories = Category.query()
+  public async index({ auth }: HttpContextContract) {
+    const user_id = auth.user.id
+    const categories = Category.query().where('user_id', user_id)
 
     return categories
   }
 
-  public async create({ response, request }: HttpContextContract) {
+  public async create({ response, request, auth }: HttpContextContract) {
     const body = request.body()
     const requiredFields = ['name']
+    const user_id = auth.user.id
 
     try {
       fieldsChecker(requiredFields, body)
 
-      const category = await Category.create(body)
+      const category = await Category.create({ ...body, user_id })
 
       return response.status(202).send(category)
     } catch (error) {
