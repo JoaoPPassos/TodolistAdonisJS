@@ -11,7 +11,12 @@ export default class TodolistsController {
     const user_id = auth.user.id
 
     const todos = await Database.from('todos as t')
-      .select(`t.*`, 'c.name as category_name', 'p.status as priority_status')
+      .select(
+        `t.*`,
+        'c.name as category_name',
+        'c.color as category_color',
+        'p.status as priority_status'
+      )
       .leftJoin('categories as c', 't.category_id', 'c.id')
       .leftJoin('priorities as p', 'p.id', 't.priority_id')
       .where('t.user_id', user_id)

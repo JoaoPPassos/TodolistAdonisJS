@@ -13,7 +13,7 @@ export default class CategoriesController {
 
   public async create({ response, request, auth }: HttpContextContract) {
     const body = request.body()
-    const requiredFields = ['name']
+    const requiredFields = ['name', 'color']
     const user_id = auth.user.id
 
     try {

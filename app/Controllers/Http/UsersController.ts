@@ -30,7 +30,6 @@ export default class UsersController {
   public async login({ response, request, auth }: HttpContextContract) {
     const body = request.body()
     const requiredFields = ['password', 'email']
-
     try {
       fieldsChecker(requiredFields, body)
 
