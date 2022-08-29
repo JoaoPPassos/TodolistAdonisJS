@@ -12,7 +12,7 @@ export default class UsersController {
     } catch (error) {}
   }
 
-  public async create({ response, request, auth }: HttpContextContract) {
+  public async create({ response, request }: HttpContextContract) {
     const body = request.body()
     const requiredFields = ['password', 'username', 'email']
 

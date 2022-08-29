@@ -5,8 +5,6 @@
  * file.
  */
 
-const ALLOWED_ORIGINS = ['http://localhost:3000/']
-
 import { CorsConfig } from '@ioc:Adonis/Core/Cors'
 
 const corsConfig: CorsConfig = {

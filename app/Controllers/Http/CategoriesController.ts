@@ -5,7 +5,7 @@ import { fieldsChecker } from '../../../util/requiredFields'
 
 export default class CategoriesController {
   public async index({ auth }: HttpContextContract) {
-    const user_id = auth.user.id
+    const user_id = auth?.user?.id || 0
     const categories = Category.query().where('user_id', user_id)
 
     return categories
@@ -14,7 +14,7 @@ export default class CategoriesController {
   public async create({ response, request, auth }: HttpContextContract) {
     const body = request.body()
     const requiredFields = ['name', 'color']
-    const user_id = auth.user.id
+    const user_id = auth?.user?.id
 
     try {
       fieldsChecker(requiredFields, body)

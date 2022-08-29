@@ -8,7 +8,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class TodolistsController {
   public async index({ auth }: HttpContextContract) {
-    const user_id = auth.user.id
+    const user_id = auth?.user?.id || 0
 
     const todos = await Database.from('todos as t')
       .select(
@@ -27,7 +27,7 @@ export default class TodolistsController {
   public async create({ request, response, auth }: HttpContextContract) {
     const requiredFields = ['name', 'description', 'category_id', 'priority_id']
     const body = request.body()
-    const user_id = auth.user.id
+    const user_id = auth?.user?.id || 0
 
     try {
       fieldsChecker(requiredFields, body)
