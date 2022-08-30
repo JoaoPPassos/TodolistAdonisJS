@@ -4,7 +4,7 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import User from 'App/Models/User'
 
 export default class UsersController {
-  public async index({ response, request }: HttpContextContract) {
+  public async index({ response }: HttpContextContract) {
     response.header
     try {
       const user = await User.query()
