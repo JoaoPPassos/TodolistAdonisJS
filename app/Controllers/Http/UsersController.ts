@@ -44,7 +44,7 @@ export default class UsersController {
 
       let userInfos = { ...user.$attributes, token }
 
-      return response.header('Access-Control-Allow-Origin', '*').status(200).send(userInfos)
+      return response.header('access-control-allow-origin', '*').status(200).send(userInfos)
     } catch (error) {
       return response.status(400).send(error.message)
     }
