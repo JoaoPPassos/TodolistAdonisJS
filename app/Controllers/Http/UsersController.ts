@@ -4,11 +4,12 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import User from 'App/Models/User'
 
 export default class UsersController {
-  public async index({ response }: HttpContextContract) {
+  public async index({ response, request }: HttpContextContract) {
+    response.header
     try {
       const user = await User.query()
 
-      return response.status(200).send(user)
+      return response.header('Access-Control-Allow-Origin', '*').status(200).send(user)
     } catch (error) {}
   }
 
@@ -43,7 +44,7 @@ export default class UsersController {
 
       let userInfos = { ...user.$attributes, token }
 
-      return response.status(200).send(userInfos)
+      return response.header('Access-Control-Allow-Origin', '*').status(200).send(userInfos)
     } catch (error) {
       return response.status(400).send(error.message)
     }
