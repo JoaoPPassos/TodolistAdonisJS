@@ -31,7 +31,7 @@ Route.group(() => {
   Route.delete('/:id', 'TodolistsController.delete')
 })
   .middleware('auth')
-  .prefix('/todo')
+  .prefix('todolist/todo')
 
 Route.group(() => {
   Route.get('/', 'CategoriesController.index')
@@ -40,15 +40,15 @@ Route.group(() => {
   Route.delete('/:id', 'CategoriesController.delete')
 })
   .middleware('auth')
-  .prefix('/categories')
+  .prefix('todolist/categories')
 
 Route.group(() => {
   Route.get('/', 'UsersController.index')
   Route.post('/', 'UsersController.create')
   Route.post('/login', 'UsersController.login')
-}).prefix('/user')
+}).prefix('todolist/user')
 
 Route.group(() => {
   Route.get('/', 'PrioritiesController.index')
   Route.post('/', 'PrioritiesController.create')
-}).prefix('/priority')
+}).prefix('todolist/priority')
